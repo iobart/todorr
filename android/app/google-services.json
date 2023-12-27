@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "367429715773",
+    "project_id": "todorr-f807a",
+    "storage_bucket": "todorr-f807a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:367429715773:android:3d72d6f592c6a197426754",
+        "android_client_info": {
+          "package_name": "com.rr.todorr"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDDVxkcQo4owusrrXTTtIKBw2ukts4Smk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
