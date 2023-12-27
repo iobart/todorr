@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:todorr/core/data/models/user_model.dart';
 import 'package:todorr/core/di/locator.dart';
-import 'package:todorr/core/domain/usecases/login_user_use_case.dart';
-import 'package:todorr/core/domain/usecases/register_user_use_case.dart';
+import 'package:todorr/core/domain/entities/usecases/login_user_use_case.dart';
+import 'package:todorr/core/domain/entities/usecases/register_user_use_case.dart';
 
 
 class LoginViewModel extends ChangeNotifier {

@@ -25,7 +25,7 @@ class HomeView extends StatelessWidget {
             },
           ),
         actions: [iconButton(context)]),
-        floatingActionButton:speedDial() ,
+        floatingActionButton:speedDial(context) ,
       body: CustomPaint(
         painter: CurvePainter(),
         child: Container(),
@@ -33,7 +33,7 @@ class HomeView extends StatelessWidget {
     );
   }
 
-Widget speedDial(){
+Widget speedDial(BuildContext context){
   return SpeedDial(
       animatedIcon: AnimatedIcons.menu_close,
       animatedIconTheme: IconThemeData(size: 28.0,color: Colors.white),
@@ -45,7 +45,7 @@ Widget speedDial(){
           child: const Icon(Icons.list_alt_rounded,color: Colors.black,),
           label: 'Crear Tarea',
           onTap: () {
-          
+          Navigator.pushNamed(context, formRoute);
           },
         ),
       ],);

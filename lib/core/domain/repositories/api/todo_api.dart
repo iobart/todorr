@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:logger/logger.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:todorr/core/data/dtos/todo_model_dto.dart';
 import 'package:todorr/core/data/dtos/user_model_dto.dart';
+import 'package:todorr/core/data/models/todo_model.dart';
 
 class TodoApi {
   final Logger _logger = Logger();
@@ -72,21 +72,28 @@ final CollectionReference _todoCollection =
     }
   }
 
- Future<void> addTodo(TodoModelDto todoModel) async {
+ Future<bool> addTodo(TodoModel todoModel) async {
   User? user = _auth.currentUser;
-  try{
-  if (user != null) {
-    return _todoCollection.doc(user.uid).set({
-      'title': todoModel.title,
-      'description': todoModel.description,
-      'state': todoModel.state,
-      'date': todoModel.date,
-    });
-  } else {
-    throw Exception('No user logged in');
-  } }
-  catch (e){
-     _logger.e(e);
+  if (user == null) {
+    _logger.e('User not found');
+    return false;
+  }
+  DocumentReference userReference = FirebaseFirestore.instance.collection('users').doc(user.uid);
+  TodoModel data =TodoModel(
+  title: todoModel.title,
+    description: todoModel.description,
+    state: todoModel.state,
+    date: todoModel.date,
+    createdByUserId: userReference
+  );
+
+  try {
+    await _todoCollection.add(data.toJson());
+    return true;
+  } catch (e) {
+    _logger.e(e);
+    return false;
   }
 }
+
 }

@@ -24,3 +24,4 @@ class TodoModel {
       'createdByUserId': createdByUserId,
     };
   }
+  }

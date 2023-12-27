@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:todorr/core/presentation/constants/desing_constant.dart';
 import 'package:todorr/core/presentation/constants/route_constant.dart';
+import 'package:todorr/core/presentation/pages/form/form_view.dart';
+import 'package:todorr/core/presentation/pages/form/form_view_model.dart';
 import 'package:todorr/core/presentation/pages/home/home_view.dart';
 import 'package:todorr/core/presentation/pages/home/home_view_model.dart';
 import 'package:todorr/core/presentation/pages/login/login_view.dart';
@@ -25,6 +27,14 @@ class RouteGenerator {
         return MaterialPageRoute<void>(
             builder: (BuildContext context) => HomeView(
               homeViewModel: viewModel,
+            ));
+            case formRoute:
+             final FormViewModel viewModel = settings.arguments != null
+            ? settings.arguments as FormViewModel
+            : FormViewModel();
+        return MaterialPageRoute<void>(
+            builder: (BuildContext context) => FormView(
+              formViewModel: viewModel,
             ));
       default:
   return MaterialPageRoute(
