@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:todorr/core/domain/entities/usecases/create_todo_use_case.dart';
+import 'package:todorr/core/domain/entities/usecases/get_todo_list_use_case.dart';
 import 'package:todorr/core/domain/repositories/api/todo_api.dart';
 import 'package:todorr/core/domain/repositories/todo/i_todo_repository.dart';
 import 'package:todorr/core/domain/repositories/todo/todo_remote_data_source.dart';
@@ -36,6 +37,7 @@ void setUpLocator() {
     ..registerLazySingleton<LogoutCurrentUserUseCase>(() => LogoutCurrentUserUseCase())
     ..registerLazySingleton<GetCurrentUserUseCase>(() => GetCurrentUserUseCase())
     ..registerLazySingleton<CreateTodoUseCase>(() => CreateTodoUseCase())
+    ..registerLazySingleton<GetTodoListUseCase>(()=>GetTodoListUseCase())
 
     //repositories
     ..registerLazySingleton<IUserRepository>(() => UserRepository())

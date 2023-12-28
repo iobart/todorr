@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:logger/logger.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:todorr/core/data/dtos/todo_model_dto.dart';
 import 'package:todorr/core/data/dtos/user_model_dto.dart';
 import 'package:todorr/core/data/models/todo_model.dart';
 
@@ -96,4 +97,26 @@ final CollectionReference _todoCollection =
   }
 }
 
+ Stream<QuerySnapshot<TodoModelDto>>? getListTodo() {
+  User? currentUser = FirebaseAuth.instance.currentUser;
+  if (currentUser == null) {
+    return null;
+  }
+  String userId = currentUser.uid;
+  DocumentReference userReference =
+       FirebaseFirestore.instance.collection('users').doc(userId);
+  return _todoCollection
+      .where('createdByUserId', isEqualTo: userReference)
+      .orderBy('date',descending: false)
+      .withConverter(
+        fromFirestore: (snap, _) => TodoModelDto.fromJson(snap.data() ?? {}),
+        toFirestore: (TodoModelDto model, _) => model.toJson(),
+      )
+      .snapshots()
+      .handleError((e) {
+        _logger.e(e);
+        print(e);
+      });
 }
+}
+

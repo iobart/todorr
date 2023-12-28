@@ -1,16 +1,22 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:todorr/core/data/dtos/todo_model_dto.dart';
 import 'package:todorr/core/data/models/todo_model.dart';
 import 'package:todorr/core/di/locator.dart';
 import 'package:todorr/core/domain/repositories/api/todo_api.dart';
 
 class TodoRemotoDataSource  {
-  final TodoApi _shoppingApi;
+  final TodoApi _todoApi;
 
   TodoRemotoDataSource({
-    TodoApi? shoppingApi,
-  }) : _shoppingApi = shoppingApi ?? locator<TodoApi>();
+    TodoApi? todoApi,
+  }) : _todoApi = todoApi ?? locator<TodoApi>();
 
   Future<bool> createTodo(TodoModel todo) async {
-    return await  _shoppingApi.addTodo(todo);
+    return await  _todoApi.addTodo(todo);
+  }
+
+    Stream<QuerySnapshot<TodoModelDto>>? getListTodo(){
+    return _todoApi.getListTodo();
   }
 }

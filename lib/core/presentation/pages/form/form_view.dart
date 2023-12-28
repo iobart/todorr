@@ -16,8 +16,9 @@ class FormView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-       leading: IconButton(icon: const Icon(Icons.arrow_back_ios,),onPressed:()=> Navigator.pop(context)),
-        title: const Text('Formulario'),
+        backgroundColor: Colors.purple,
+       leading: IconButton(icon: const Icon(Icons.arrow_back_ios,color: Colors.white,),onPressed:()=> Navigator.pop(context)),
+        title: const Text('Formulario',style: TextStyle(color: Colors.white),),
       ),
       body: Form(
         key: _formKey,

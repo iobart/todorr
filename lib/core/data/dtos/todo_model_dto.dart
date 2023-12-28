@@ -7,7 +7,11 @@ class TodoModelDto {
   final String title;
   final String description;
   final bool state;
-  final DateTime date;
+  @JsonKey(
+    fromJson: _fromJsonDateTime,
+    toJson: _toJsonDateTime,
+  )
+  final DateTime? date;
   @JsonKey(
     fromJson: _fromJsonDocumentReference,
     toJson: _toJsonDocumentReference,
@@ -31,6 +35,11 @@ class TodoModelDto {
       DocumentReference? documentReference) {
     return documentReference;
   }
+
+ static DateTime? _fromJsonDateTime(Timestamp? value) => value?.toDate();
+
+  static DateTime? _toJsonDateTime(DateTime? value) => value;
+
   factory TodoModelDto.fromJson(Map<String,dynamic> json)=>
   _$TodoModelDtoFromJson(json);
 
