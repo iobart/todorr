@@ -6,12 +6,14 @@ class TodoModel {
   final bool state;
   final DateTime date;
   final DocumentReference? createdByUserId;
+  final Map<String, String>? translated; 
 
   TodoModel({
     required this.title,
     required this.description,
     required this.state,
     required this.date,
+     this.translated,
     this.createdByUserId
   });
 
@@ -21,6 +23,7 @@ class TodoModel {
       'description': description,
       'state': state,
       'date': date,
+      'translated':translated,
       'createdByUserId': createdByUserId,
     };
   }

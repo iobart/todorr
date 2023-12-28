@@ -6,6 +6,7 @@ part 'todo_model_dto.g.dart';
 class TodoModelDto {
   final String title;
   final String description;
+  final Map<String,String>? translated;
   final bool state;
   @JsonKey(
     fromJson: _fromJsonDateTime,
@@ -23,7 +24,8 @@ class TodoModelDto {
     required this.description,
     required this.state,
     required this.date,
-    required this.createdByUserId
+    required this.createdByUserId,
+    this.translated
   });
 
     static DocumentReference? _fromJsonDocumentReference(

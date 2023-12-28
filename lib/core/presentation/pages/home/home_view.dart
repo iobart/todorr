@@ -3,10 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:todorr/core/data/dtos/todo_model_dto.dart';
 import 'package:todorr/core/di/locator.dart';
+import 'package:todorr/core/presentation/constants/desing_constant.dart';
 import 'package:todorr/core/presentation/constants/route_constant.dart';
 import 'package:todorr/core/presentation/pages/home/home_view_model.dart';
 import 'package:todorr/core/presentation/utils/curve_painter.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:todorr/core/presentation/utils/image_utils.dart';
 
 class HomeView extends StatelessWidget {
    final HomeViewModel _homeViewModel;
@@ -35,8 +37,8 @@ class HomeView extends StatelessWidget {
           return const CircularProgressIndicator();
         }
         if(snapshot.data!.docs.isEmpty){
-          return const Center(
-            child: Text("No list"),
+          return  Center(
+            child: _noItem(),
           );
         }
         return Container(
@@ -69,6 +71,12 @@ class HomeView extends StatelessWidget {
 
   }
 
+
+Widget _noItem(){
+ return getLottieFromJson(
+              fit: BoxFit.contain, height: 300, lottie: kWrongRoute,repeat: true);
+}
+
     Widget iconButton(BuildContext context) {
     return IconButton(
       icon: const Icon(Icons.logout,color: Colors.white),
@@ -95,19 +103,24 @@ class TodoItem extends StatelessWidget {
       width: 1,
     ),
   ),
-  child: ListTile(
-    leading: _checkBox(card.state,card),
-    title: Text(
-      card.title,
-      overflow: TextOverflow.ellipsis,
-      style: const TextStyle(fontSize: 18),
-    ),
-    subtitle: Text(
-      card.description.toString(),
-      overflow: TextOverflow.ellipsis,
-      style: const TextStyle(fontSize: 16),
-    ),
-    trailing: _iconButton()
+  child: Column(
+    children: [
+      ListTile(
+        leading: _checkBox(card.state,card),
+        title: Text(
+          card.title,
+          overflow: TextOverflow.ellipsis,
+          style: const TextStyle(fontSize: 18),
+        ),
+        subtitle: Text(
+          card.description.toString(),
+          overflow: TextOverflow.ellipsis,
+          style: const TextStyle(fontSize: 16),
+        ),
+        trailing: _iconButton()
+      ),
+      Text(card.translated!.values.first)
+    ],
   ),
 );
 
@@ -131,7 +144,7 @@ Widget _iconButton()
       tristate: isCheck,
       value: isCheck,
       onChanged: (bool? value) {
-      _homeViewModel.updateTodo(value!,docId,todo);
+      _homeViewModel.updateTodo(value??false,docId,todo);
       },
     );
 }

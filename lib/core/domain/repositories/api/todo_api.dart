@@ -85,6 +85,7 @@ final CollectionReference _todoCollection =
     description: todoModel.description,
     state: todoModel.state,
     date: todoModel.date,
+    translated: todoModel.translated,
     createdByUserId: userReference
   );
 
@@ -138,8 +139,5 @@ Future<bool> deleTodo(String docId) async {
         print(e);
       });
 }
-
-
-
 }
 

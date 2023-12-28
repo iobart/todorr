@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 import 'package:todorr/core/data/models/todo_model.dart';
 import 'package:todorr/core/di/locator.dart';
 import 'package:todorr/core/domain/entities/usecases/create_todo_use_case.dart';

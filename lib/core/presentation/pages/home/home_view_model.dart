@@ -1,6 +1,3 @@
-
-import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:todorr/core/data/dtos/todo_model_dto.dart';
@@ -66,7 +63,7 @@ void deleteTodo(String docId){
   ///update current todo task
   void updateTodo(bool isCheck,String docId,TodoModelDto todo){
     TodoModel newModel =TodoModel(date: todo.date!
-    ,description: todo.description, title: todo.title,state: isCheck,createdByUserId: todo.createdByUserId);
+    ,description: todo.description, title: todo.title,state: isCheck,createdByUserId: todo.createdByUserId,translated: todo.translated);
     _updateCurrentTodoUseCase.invoke(docId, newModel);
   }
 }

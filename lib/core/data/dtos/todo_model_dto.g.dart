@@ -13,12 +13,16 @@ TodoModelDto _$TodoModelDtoFromJson(Map<String, dynamic> json) => TodoModelDto(
       date: TodoModelDto._fromJsonDateTime(json['date'] as Timestamp?),
       createdByUserId: TodoModelDto._fromJsonDocumentReference(
           json['createdByUserId'] as DocumentReference<Object?>?),
+      translated: (json['translated'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as String),
+      ),
     );
 
 Map<String, dynamic> _$TodoModelDtoToJson(TodoModelDto instance) =>
     <String, dynamic>{
       'title': instance.title,
       'description': instance.description,
+      'translated': instance.translated,
       'state': instance.state,
       'date': TodoModelDto._toJsonDateTime(instance.date),
       'createdByUserId':
