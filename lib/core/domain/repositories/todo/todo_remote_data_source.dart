@@ -19,4 +19,12 @@ class TodoRemotoDataSource  {
     Stream<QuerySnapshot<TodoModelDto>>? getListTodo(){
     return _todoApi.getListTodo();
   }
+
+  Future<bool> updateTodo(String docId,TodoModel todo){
+    return _todoApi.updateTodo(docId,todo);
+  }
+
+  Future<bool> deleteTodo(String docId){
+    return _todoApi.deleTodo(docId);
+  }
 }

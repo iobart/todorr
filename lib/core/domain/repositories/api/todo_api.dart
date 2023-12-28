@@ -97,6 +97,26 @@ final CollectionReference _todoCollection =
   }
 }
 
+Future<bool> updateTodo(String docId, TodoModel todoModel) async {
+  try {
+    await _todoCollection.doc(docId).set(todoModel.toJson());
+    return true;
+  } catch (e) {
+    _logger.e(e);
+    return false;
+  }
+}
+
+Future<bool> deleTodo(String docId) async {
+  try {
+    await _todoCollection.doc(docId).delete();
+    return true;
+  } catch (e) {
+    _logger.e(e);
+    return false;
+  }
+}
+
  Stream<QuerySnapshot<TodoModelDto>>? getListTodo() {
   User? currentUser = FirebaseAuth.instance.currentUser;
   if (currentUser == null) {
@@ -118,5 +138,8 @@ final CollectionReference _todoCollection =
         print(e);
       });
 }
+
+
+
 }
 

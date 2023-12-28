@@ -54,7 +54,7 @@ class HomeView extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       final doc = snapshot.data!.docs[index];
                       final TodoModelDto card = doc.data();
-                      return TodoItem(card);
+                      return TodoItem(card,_homeViewModel,doc.id);
                     },
                   ),
                 ),
@@ -82,8 +82,9 @@ class HomeView extends StatelessWidget {
 
 class TodoItem extends StatelessWidget {
   final TodoModelDto card;
-
- const TodoItem(this.card);
+  final HomeViewModel _homeViewModel;
+  final String docId;
+  TodoItem(this.card, HomeViewModel? homeViewModel,this.docId): _homeViewModel = homeViewModel ?? locator<HomeViewModel>();
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +96,7 @@ class TodoItem extends StatelessWidget {
     ),
   ),
   child: ListTile(
+    leading: _checkBox(card.state,card),
     title: Text(
       card.title,
       overflow: TextOverflow.ellipsis,
@@ -105,25 +107,38 @@ class TodoItem extends StatelessWidget {
       overflow: TextOverflow.ellipsis,
       style: const TextStyle(fontSize: 16),
     ),
-    trailing: _checkBox(card.state),
+    trailing: _iconButton()
   ),
 );
 
   }
+Widget _iconButton()
+{
+  return ElevatedButton(
+   style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(Colors.red),
+        shape: MaterialStateProperty.all(const RoundedRectangleBorder(borderRadius: BorderRadius.zero)),
+    ),
+    onPressed: (){
+    _homeViewModel.deleteTodo(docId);
+  }, 
+  child: const Icon(Icons.delete,color: Colors.white,));
 }
 
-  
-Widget _checkBox(bool isCheck){
+  Widget _checkBox(bool isCheck,TodoModelDto todo){
   return Checkbox(
       checkColor: Colors.white,
       tristate: isCheck,
       value: isCheck,
       onChanged: (bool? value) {
-       
-      
+      _homeViewModel.updateTodo(value!,docId,todo);
       },
     );
 }
+}
+
+  
+
 
 
 Widget speedDial(BuildContext context){

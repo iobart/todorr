@@ -20,5 +20,16 @@ TodoRepository({
   Stream<QuerySnapshot<TodoModelDto>>? getListTodo() {
   return _todoRemotoDataSource.getListTodo();
   }
+  
+  @override
+  Future<bool> updateTodo(String docId,TodoModel todo) {
+    
+    return _todoRemotoDataSource.updateTodo(docId,todo);
+  }
+  
+  @override
+  Future<bool> deleteTodo(String docId) {
+    return _todoRemotoDataSource.deleteTodo(docId);
+  }
 
 }

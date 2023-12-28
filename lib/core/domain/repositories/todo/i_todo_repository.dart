@@ -5,5 +5,6 @@ import 'package:todorr/core/data/models/todo_model.dart';
 abstract class ITodoRepository {
 Future<bool> createTodo(TodoModel todo);
 Stream<QuerySnapshot<TodoModelDto>>? getListTodo();
-
+Future<bool>updateTodo(String docId,TodoModel todo);
+Future<bool>deleteTodo(String docId);
 }
